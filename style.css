@@ -181,14 +181,25 @@ body {
 }
 
 .logo-image {
-    max-height: 200px;
+    max-height: 140px;
     width: auto;
     filter: drop-shadow(0 0 15px rgba(255, 0, 110, 0.5)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.logo-image.large-logo {
+    max-height: 280px;
+    filter: drop-shadow(0 0 25px rgba(255, 0, 110, 0.7)) drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+    animation: logoFloat 4s infinite alternate ease-in-out;
+}
+
+@keyframes logoFloat {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-8px) scale(1.02); }
 }
 
 .logo-image:hover {
-    transform: scale(1.06);
+    transform: scale(1.04);
 }
 
 .logo-title {
@@ -247,25 +258,33 @@ body {
 
 /* Setup Screen */
 .setup-screen {
-    max-width: 600px;
+    width: 100%;
+    max-width: 650px;
     margin: 0 auto;
 }
 
+.setup-screen .glass-panel {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(255, 0, 110, 0.15);
+    padding: 45px;
+}
+
 .setup-screen h2 {
-    font-size: 2rem;
-    font-weight: 800;
+    font-size: 2.3rem;
+    font-weight: 900;
     text-align: center;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.7));
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, #fff, rgba(255,255,255,0.85));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
 }
 
 .panel-desc {
     text-align: center;
-    color: rgba(255, 255, 255, 0.50);
-    margin-bottom: 30px;
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.60);
+    margin-bottom: 35px;
+    font-size: 1.05rem;
 }
 
 .team-inputs-container {

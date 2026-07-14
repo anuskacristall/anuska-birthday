@@ -88,6 +88,7 @@ const scoreboard = document.getElementById("scoreboard");
 const secretBanner = document.getElementById("secret-banner");
 const gridWrapper = document.getElementById("grid-wrapper");
 const jeopardyGrid = document.getElementById("jeopardy-grid");
+const logoImg = document.getElementById("logo-img");
 const startBtn = document.getElementById("start-game-btn");
 const resetBtn = document.getElementById("reset-game-btn");
 
@@ -242,6 +243,7 @@ function resetGame() {
 
 function renderGame() {
     if (gameState.gameStarted) {
+        logoImg.classList.remove("large-logo");
         setupScreen.classList.add("hidden");
         setupScreen.classList.remove("active");
         boardScreen.classList.remove("hidden");
@@ -284,6 +286,7 @@ function renderGame() {
             closeModal();
         }
     } else {
+        logoImg.classList.add("large-logo");
         boardScreen.classList.add("hidden");
         boardScreen.classList.remove("active");
         setupScreen.classList.remove("hidden");
