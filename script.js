@@ -150,6 +150,20 @@ function setupEventListeners() {
     customAlertCloseBtn.addEventListener("click", () => {
         customAlertModal.classList.add("hidden");
     });
+
+    // Event listener para controle de Tela Cheia
+    const fullscreenBtn = document.getElementById("fullscreen-btn");
+    fullscreenBtn.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error(`Erro ao ativar tela cheia: ${err.message}`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    });
 }
 
 /* ==========================================================================

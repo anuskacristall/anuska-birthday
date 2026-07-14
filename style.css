@@ -1105,3 +1105,48 @@ body {
 .btn-team-error:hover {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.5) !important;
 }
+
+/* Botão de Tela Cheia Flutuante */
+.fullscreen-toggle {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(25, 28, 56, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fullscreen-toggle:hover {
+    background: var(--btn-active);
+    border-color: var(--accent-cyan);
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+}
+
+.fullscreen-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Ajuste responsivo para o botão em telas menores */
+@media (max-width: 768px) {
+    .fullscreen-toggle {
+        top: 15px;
+        right: 15px;
+        width: 38px;
+        height: 38px;
+    }
+    .fullscreen-toggle svg {
+        width: 16px;
+        height: 16px;
+    }
+}
