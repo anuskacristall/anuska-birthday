@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anuska's Birthday - Game Show</title>
+    <!-- Google Fonts: Outfit (moderna, arredondada e altamente legível) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars-background"></div>
+    <div id="sparkles-background" class="sparkles-background"></div>
+    <div class="app-container">
+        <!-- HEADER DO JOGO -->
+        <header class="game-header">
+            <div class="logo-container">
+                <!-- Se o arquivo logo.png existir na pasta, ele é exibido. Caso contrário, exibe o texto neon -->
+                <img id="logo-img" src="logo.png" alt="Anuska's Birthday" class="logo-image hidden" onload="this.classList.remove('hidden'); document.getElementById('logo-text-wrapper').classList.add('hidden');" onerror="this.classList.add('hidden'); document.getElementById('logo-text-wrapper').classList.remove('hidden');">
+                <div id="logo-text-wrapper">
+                    <h1 class="logo-title"><span class="logo-anuska">ANUSKA'S</span> <span class="logo-birthday">BIRTHDAY</span></h1>
+                    <p class="logo-subtitle">divas fazem assim</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- TELA 1: SETUP DO JOGO -->
+        <section id="setup-screen" class="screen setup-screen active">
+            <div class="panel glass-panel">
+                <h2>Configuração das Equipes</h2>
+                <p class="panel-desc">Digite o nome das duas equipes para iniciar a disputa.</p>
+                
+                <form id="setup-form" onsubmit="event.preventDefault();">
+                    <div class="team-inputs-container">
+                        <div class="input-group">
+                            <span class="input-badge team-1">1</span>
+                            <input type="text" id="team-1-input" class="team-input" placeholder="Nome da Equipe 1" autocomplete="off" value="Alfa">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-badge team-2">2</span>
+                            <input type="text" id="team-2-input" class="team-input" placeholder="Nome da Equipe 2" autocomplete="off" value="Beta">
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="start-game-btn" class="btn btn-primary btn-large btn-glow">
+                        <span>Iniciar Jogo</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- TELA 2: TABULEIRO DO JOGO -->
+        <section id="board-screen" class="screen board-screen hidden">
+            <!-- Placar Superior -->
+            <div id="scoreboard" class="scoreboard">
+                <!-- Preenchido dinamicamente via JS -->
+            </div>
+
+            <!-- Banner do Modo Secreto (Placar Escondido) -->
+            <div id="secret-banner" class="secret-banner hidden">
+                🔒 MODO SECRETO ATIVADO! O PLACAR FOI CONGELADO ATÉ O FINAL! 🔒
+            </div>
+
+            <!-- Tabuleiro (Grid do Jogo) -->
+            <div id="grid-wrapper" class="board-panel glass-panel">
+                <div id="jeopardy-grid" class="jeopardy-grid">
+                    <!-- Preenchido dinamicamente via JS (4 colunas) -->
+                </div>
+            </div>
+
+            <!-- Tela final do vencedor (escondida inicialmente) -->
+            <div id="final-results" class="board-panel glass-panel final-results hidden">
+                <button id="reveal-winner-btn" class="btn btn-primary btn-glow btn-winner">
+                    <span>Quem Ganhou? 👑</span>
+                    <div class="btn-shine"></div>
+                </button>
+                <div id="winner-announcement" class="winner-announcement hidden">
+                    <!-- Anuncio do vencedor via JS -->
+                </div>
+            </div>
+
+            <!-- Controles do Apresentador no Tabuleiro -->
+            <div class="board-controls">
+                <button id="reset-game-btn" class="btn btn-secondary btn-reset">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Reiniciar Jogo
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL DE PERGUNTA -->
+    <div id="question-modal" class="modal-backdrop hidden">
+        <div class="modal-card">
+            <div class="modal-header">
+                <span id="modal-category" class="modal-category">TEMA</span>
+                <span id="modal-value" class="modal-value">000</span>
+            </div>
+            
+            <div class="modal-body">
+                <p id="modal-question" class="modal-question">Carregando pergunta...</p>
+                
+                <!-- Botão de Revelar Resposta -->
+                <button id="reveal-btn" class="btn btn-primary btn-large btn-glow">
+                    Revelar Resposta
+                </button>
+
+                <!-- Container de Resposta Revelada -->
+                <div id="answer-box" class="answer-box hidden">
+                    <h4 class="answer-title">Resposta Correta:</h4>
+                    <p id="modal-answer" class="modal-answer">Resposta aqui</p>
+                    
+                    <hr class="modal-divider">
+                    
+                    <h4 class="control-title">Atribuição de Pontos</h4>
+                    <p class="control-subtitle">Selecione qual equipe acertou para somar os pontos:</p>
+                    <div id="score-attribution-buttons" class="score-attribution-buttons">
+                        <!-- Botões das equipes criados dinamicamente -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button id="close-modal-btn" class="btn btn-secondary">
+                    Ninguém Acertou / Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE ALERTA PERSONALIZADO -->
+    <div id="custom-alert-modal" class="modal-backdrop hidden">
+        <div class="modal-card alert-card">
+            <div class="alert-icon">🔒</div>
+            <h2 id="custom-alert-title" class="alert-title">MODO SECRETO ATIVADO!</h2>
+            <p id="custom-alert-message" class="alert-message">Metade das perguntas foram respondidas! Os placares foram congelados e agora os pontos são SECRETOS até o final!</p>
+            <div class="modal-footer">
+                <button id="custom-alert-close-btn" class="btn btn-primary btn-large btn-glow">Entendido! 👑</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container de Confetes -->
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
